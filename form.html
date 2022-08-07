@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<html>
+    <style>
+        label{
+            margin: 400px;
+            padding: 10px;
+            color: rgb(10, 10, 10);
+        }
+        input{
+            margin-left: 300px;
+            margin-bottom: 20px;
+            padding: 5px;
+            color: rgb(14, 13, 13);
+            background-color: rgb(240, 233, 233);
+            width: 300px;
+        }
+        .container{
+            background-color: rgb(58, 193, 247);
+            margin-left: 200px;
+            margin-right: 200px;
+            margin-top: 20px;
+        }
+ #save{
+  margin-left: 400px;
+  margin-bottom: 10px;
+ }
+        #button:hover{
+      background-color: #3bccd1; 
+          }
+       #display-image{
+        width: 100px;
+        height: 80px;
+       border: 2px solid rgb(49, 49, 238);
+        background-position: center;
+        background-size: cover;
+       margin-left: 390px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      
+}
+
+    </style>
+<body>
+
+
+<div class="container">
+  <input type="file" id="image-input" accept="image/jpeg, image/png, image/jpg">
+  <div id="display-image"></div>
+
+<form  method="post" id="myForm" >
+    <label for="fname">First Name</label><br>
+  <input type="text" name="fname" placeholder="Enter First Name" required id="first_name"><br>
+  <label for="lname">Last Name</label><br>
+  <input type="text" name="lname" placeholder="Enter Last Name" required id="last_name"><br>
+  <label for="uname">Username</label><br>
+  <input type="text" name="uname" placeholder="Enter UserName" required id="email"><br>
+  <P><button type="button" class="w3-btn w3-blue" id="save">Save</button>
+</form>
+
+</div>
+
+
+
+<script>
+  const image_input = document.querySelector("#image-input");
+   image_input.addEventListener("change", function() {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    const uploaded_image = reader.result;
+    document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+  });
+  reader.readAsDataURL(this.files[0]);
+});
+</script>
+<br>
+<table class="w3-table-all" id="myTable">
+<thead>
+<tr class="w3-blue">
+<th nowrap>Sl.No</th>      
+<th nowrap>First Name</th>      
+<th nowrap>Last name</th>
+<th nowrap>Username</th>
+<th nowrap>Action</th>
+</tr>
+</thead>
+<tbody >
+</tbody>
+</table>
+</div>
+<script type="text/javascript">
+$('#save').on('click', function() {
+var first_name=$('#first_name').val();
+var last_name=$('#last_name').val();
+var email=$('#email').val();
+var count = $('#myTable tr').length;
+if(first_name!="" && last_name !="" && email!=""){
+$('#myTable tbody').append('<tr class="child"><td>'+count+'</td><td>'+first_name+'</td><td>'+last_name+'</td><td>'+email+'</td><td><a href="javascript:void(0);" class="remCF1 btn btn-small btn-danger">Remove</a></td></tr>');
+}
+});
+$(document).on('click','.remCF1',function(){
+$(this).parent().parent().remove();
+$('#myTable tbody tr').each(function(i){            
+ $($(this).find('td')[0]).html(i+1);          
+});
+});
+</script>
+</body>
+</html>
